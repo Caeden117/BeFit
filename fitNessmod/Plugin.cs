@@ -11,6 +11,7 @@ using System;
 using System.IO;
 using System.Collections;
 using Object = UnityEngine.Object;
+using CountersPlus.Custom;
 
 namespace BeFitMod
 {
@@ -26,7 +27,7 @@ namespace BeFitMod
         public string Version => "v0.2.2"; //New Counting Algorithm
         bool enabled = true;
         public static bool safetyEnabled = false;
-        public static Vector3 counterPosition = new Vector3(-4.25f, 0.5f, 7f);
+        public static Vector3 counterPosition = new Vector3(-4.25f, 0.1f, 7f);
         MenuDisplay display;
         igcv02x calCounter;
 
@@ -37,6 +38,18 @@ namespace BeFitMod
             Plugin.Instance.Config.sessionCalories = 0;
             Console.WriteLine(modLog + "Current Date: " + DateTime.Now.ToString("dd.MM.yyyy"));
             Console.WriteLine(modLog + Name + " " +  Version);
+            try
+            {
+                CustomCounter counter = new CustomCounter
+                {
+                    JSONName = "calories", //Name in Counters+ config
+                    Name = "Calorie", //Name of Counter in game + in settings
+                    Mod = this, //Mod it was created from
+                    Counter = "inGameCalorieCounter", //Name of the regular spawned counter
+                };
+                CustomCounterCreator.CreateCustomCounter(counter);
+            }
+            catch { }
             SceneManager.activeSceneChanged += SceneManagerOnActiveSceneChanged;
             SceneManager.sceneLoaded += SceneManager_sceneLoaded;
         }

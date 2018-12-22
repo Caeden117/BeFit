@@ -66,7 +66,7 @@ namespace BeFitMod
             LiveCountText.color = Color.white;
             LiveCountText.font = Resources.Load<TMP_FontAsset>("Beon SDF No-Glow");
             LiveCountText.alignment = TextAlignmentOptions.Center;
-            LiveCountText.rectTransform.position = Plugin.counterPosition + new Vector3(0, -0.4f, 0);
+            transform.position = Plugin.counterPosition;
             ////////////////////////////////////////////////////////////////////////////////////////
             LiveCount = new GameObject("Label");
             TextMeshPro label = LiveCount.AddComponent<TextMeshPro>();
@@ -77,6 +77,8 @@ namespace BeFitMod
             label.font = Resources.Load<TMP_FontAsset>("Beon SDF No-Glow");
             label.alignment = TextAlignmentOptions.Center;
             label.rectTransform.position = Plugin.counterPosition;
+            LiveCount.transform.parent = LiveCountText.transform;
+            LiveCount.transform.localPosition = new Vector3(0, 0.4f, 0);
         }
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////
         private void OnDestroy()
